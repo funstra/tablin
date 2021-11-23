@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="./index.js"></script>
+    <title>flattend</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            --black: #333;
+            --dark: #666;
+            --light: #bbb;
+            --white: #eee;
+        }
+
+        main {
+            max-width: 85rem;
+            margin: 0 auto;
+            margin-top: 4rem;
+        }
+
+        table {
+            table-layout: fixed;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 1rem;
+
+        }
+
+        table caption {
+            text-align: start;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        table th {
+            font-weight: 100;
+            ;
+            color: var(--black);
+            text-align: left;
+        }
+
+        table :where(tr, td) {
+            border-width: 1px;
+        }
+
+        tr {
+            background-color: hsl(var(--color-hue), var(--color-sat), 80%);
+        }
+        tr[data-peak=true] td:first-child{
+            color: red;
+        }
+
+        table td+td {
+            border-left-color: var(--dark);
+            border-left-style: dashed;
+        }
+
+        table tr+tr {
+            border-top-width: 1px;
+            border-top-color: #bbb5;
+            border-top-style: solid;
+        }
+
+        td {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--dark);
+            white-space: pre-wrap;
+            text-align: left;
+            padding: 0.125rem;
+            margin: 0.0625rem;
+        }
+
+        .border {
+            border: 2px var(--dark) dashed;
+            padding: var(--pad, 0);
+        }
+    </style>
+
+</head>
+
+<body>
+    <main>
+        <div class="border" style="--pad:1rem; display: flex;">
+            <table>
+                <caption>Users</caption>
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>
