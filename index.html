@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="module" src="./index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;900&display=swap" rel="stylesheet">
     <title>flattend</title>
 
     <style>
@@ -16,25 +19,29 @@
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            font-family: 'Outfit', sans-serif;
             --black: #333;
-            --dark: #666;
+            --dark: #888;
             --light: #bbb;
             --white: #eee;
+            color: var(--black);
         }
 
         main {
+            padding: 1rem;
+            height: 100%;
+            overflow-y: hidden;
             max-width: 85rem;
             margin: 0 auto;
-            margin-top: 4rem;
+            display: flex;
+            align-items: flex-end;
         }
 
         table {
             table-layout: fixed;
             border-collapse: collapse;
             width: 100%;
-            margin-bottom: 1rem;
-
         }
 
         table caption {
@@ -45,7 +52,9 @@
 
         table th {
             font-weight: 100;
-            ;
+            top: calc(var(--pad) * -1);
+            background-color: white;
+            position: sticky;
             color: var(--black);
             text-align: left;
         }
@@ -55,10 +64,13 @@
         }
 
         tr {
-            background-color: hsl(var(--color-hue), var(--color-sat), 80%);
+            background-color: hsl(calc(40 - var(--color-hue) * 40 + var(--hue-offset, 40)), var(--color-sat), 80%);
         }
-        tr[data-peak=true] td:first-child{
-            color: red;
+
+        tr[data-peak=true] td {
+            /* color: red; */
+            text-decoration: underline;
+            font-style: italic;
         }
 
         table td+td {
@@ -73,6 +85,7 @@
         }
 
         td {
+            display: table-cell;
             overflow: hidden;
             text-overflow: ellipsis;
             color: var(--dark);
@@ -82,25 +95,93 @@
             margin: 0.0625rem;
         }
 
-        .border {
+        .tableContainer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tableWrapper {
+            --pad: 0.25rem;
+            padding: 0.25rem;
             border: 2px var(--dark) dashed;
-            padding: var(--pad, 0);
+        }
+
+        .tableContainer [type=range]+datalist {
+            display: flex;
+            justify-content: space-between;
+            margin-top: -4px;
+            padding-inline: 5px;
+        }
+
+        .tableContainer [type=range]+datalist option {
+            width: max-content;
+            text-align: center;
+        }
+
+        .hue-input {
+            writing-mode: sideways-lr;
+            height: 50%;
+            display: flex;
+            margin-block-end: 1rem;
+            gap: 1rem;
+        }
+
+        input[name=hue] {
+            accent-color: hsl(var(--hue-offset, 40), 80%, 80%);
+            height: 50%;
+        }
+
+        label[for=hue] {
+            font-family: 'Courier New', Courier, monospace;
+            text-decoration: underline;
+            text-decoration-style: wavy;
+            line-height: 1;
+        }
+
+        #title {
+            text-orientation: sideways;
+            writing-mode: sideways-lr;
+            letter-spacing: 0.25rem;
+        }
+
+        .arrow::after {
+            content: '\2192';
         }
     </style>
 
 </head>
 
 <body>
-    <main>
-        <div class="border" style="--pad:1rem; display: flex;">
-            <table>
-                <caption>Users</caption>
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+    <main style="">
+        <h1 id="title">Tablin</h1>
+        <div class="hue-input">
+            <input type="range" id="hue" name="hue" min="-140" max="220"
+                oninput="document.body.style.setProperty('--hue-offset',`${event.target.value}`)">
+            <div class="arrow"></div>
+            <label for="hue">hue</label>
+        </div>
+        <div class="tableContainer" style="--pad:1rem; display: flex; height: 100%;">
+            <input type="range" list="maxResults" min="4" max="32" step="4">
+            <datalist id="maxResults" style="--list-length: 8">
+                <option value="4">o</option>
+                <option value="8">o</option>
+                <option value="12">o</option>
+                <option value="16">o</option>
+                <option value="20">o</option>
+                <option value="24">o</option>
+                <option value="28">o</option>
+                <option value="32">o</option>
+            </datalist>
+            <h2 style="font-weight: 100; color: var(--dark);" role="table">Users</h2>
+            <div class="tableWrapper" style="overflow-y: auto; height: 100%;">
+                <table>
+                    <thead>
+                        <tr></tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 </body>
