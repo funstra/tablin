@@ -26,12 +26,17 @@
             --light: #bbb;
             --white: #eee;
             color: var(--black);
+            --hue-range: 60;
+            --base-hue: 0;
+            --base-sat: 50%;
+            --base-light: 50%;
+
+            /* background-color: hsl(var(--base-hue), var(--base-sat), var(--base-light)); */
         }
 
         main {
             padding: 1rem;
             height: 100%;
-            overflow-y: hidden;
             max-width: 85rem;
             margin: 0 auto;
             display: flex;
@@ -39,9 +44,8 @@
         }
 
         table {
-            table-layout: fixed;
+            white-space: nowrap;
             border-collapse: collapse;
-            width: 100%;
         }
 
         table caption {
@@ -64,11 +68,12 @@
         }
 
         tr {
-            background-color: hsl(calc(40 - var(--color-hue) * 40 + var(--hue-offset, 40)), var(--color-sat), 80%);
+            --tr-hue: calc((var(--hue-range) + var(--base-hue)) - var(--color-hue) * var(--hue-range));
+            --tr-sat: calc(var(--base-sat) * var(--color-sat));
+            background-color: hsl(var(--tr-hue), var(--tr-sat), var(--base-light));
         }
 
         tr[data-peak=true] td {
-            /* color: red; */
             text-decoration: underline;
             font-style: italic;
         }
@@ -85,17 +90,20 @@
         }
 
         td {
+
             display: table-cell;
             overflow: hidden;
             text-overflow: ellipsis;
             color: var(--dark);
-            white-space: pre-wrap;
             text-align: left;
             padding: 0.125rem;
             margin: 0.0625rem;
         }
 
         .tableContainer {
+            width: 100%;
+            width: 0px;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
@@ -118,13 +126,32 @@
             text-align: center;
         }
 
-        .hue-input {
+        .color-input {
+            margin-inline-start: 0.5rem;
             writing-mode: sideways-lr;
             height: 50%;
             display: flex;
             margin-block-end: 1rem;
             gap: 1rem;
         }
+
+        .color-input label[for=colorPicker]:last-of-type {
+            gap: 0.75rem;
+            display: flex;
+        }
+        .color-input label[for=colorPicker]:last-of-type span:first-child::before{
+            content: 'hue:';
+            margin-inline-end: 0.25ch;
+        }
+        .color-input label[for=colorPicker]:last-of-type span:nth-of-type(2)::before{
+            content: 'sat:';
+            margin-inline-end: 0.25ch;
+        }
+        .color-input label[for=colorPicker]:last-of-type span:nth-of-type(3)::before{
+            content: 'lightness:';
+            margin-inline-end: 0.25ch;
+        }
+
 
         input[name=hue] {
             accent-color: hsl(var(--hue-offset, 40), 80%, 80%);
@@ -142,10 +169,11 @@
             text-orientation: sideways;
             writing-mode: sideways-lr;
             letter-spacing: 0.25rem;
+            margin-block-end: 1rem;
         }
 
         .arrow::after {
-            content: '\2192';
+            content: '\21DD';
         }
     </style>
 
@@ -154,11 +182,12 @@
 <body>
     <main style="">
         <h1 id="title">Tablin</h1>
-        <div class="hue-input">
-            <input type="range" id="hue" name="hue" min="-140" max="220"
-                oninput="document.body.style.setProperty('--hue-offset',`${event.target.value}`)">
+        <div class="color-input">
+            <label for="colorPicker">color</label>
             <div class="arrow"></div>
-            <label for="hue">hue</label>
+            <input value="#eed880" type="color" name="colorPicker" id="colorPicker"
+                oninput="setHSL(event.target.value)">
+            <label for="colorPicker"><span></span><span></span><span></span></label>
         </div>
         <div class="tableContainer" style="--pad:1rem; display: flex; height: 100%;">
             <input type="range" list="maxResults" min="4" max="32" step="4">
