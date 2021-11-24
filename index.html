@@ -114,6 +114,8 @@
             border: 2px var(--dark) dashed;
         }
 
+
+
         .tableContainer [type=range]+datalist {
             display: flex;
             justify-content: space-between;
@@ -139,15 +141,18 @@
             gap: 0.75rem;
             display: flex;
         }
-        .color-input label[for=colorPicker]:last-of-type span:first-child::before{
+
+        .color-input label[for=colorPicker]:last-of-type span:first-child::before {
             content: 'hue:';
             margin-inline-end: 0.25ch;
         }
-        .color-input label[for=colorPicker]:last-of-type span:nth-of-type(2)::before{
+
+        .color-input label[for=colorPicker]:last-of-type span:nth-of-type(2)::before {
             content: 'sat:';
             margin-inline-end: 0.25ch;
         }
-        .color-input label[for=colorPicker]:last-of-type span:nth-of-type(3)::before{
+
+        .color-input label[for=colorPicker]:last-of-type span:nth-of-type(3)::before {
             content: 'lightness:';
             margin-inline-end: 0.25ch;
         }
@@ -175,6 +180,34 @@
         .arrow::after {
             content: '\21DD';
         }
+
+        .max-result input{
+            width: 100%;
+        }
+
+        .max-result{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+
+        @media (max-width:480px) {
+            #title {
+                display: none;
+            }
+
+            .tableContainer .max-result {
+                margin-top: 1rem;
+            }
+
+            .tableContainer .max-result {
+                order: 1;
+            }
+            .tableContainer .max-result input{
+                order: 1;
+            }
+        }
     </style>
 
 </head>
@@ -190,17 +223,19 @@
             <label for="colorPicker"><span></span><span></span><span></span></label>
         </div>
         <div class="tableContainer" style="--pad:1rem; display: flex; height: 100%;">
-            <input type="range" list="maxResults" min="4" max="32" step="4">
-            <datalist id="maxResults" style="--list-length: 8">
-                <option value="4">o</option>
-                <option value="8">o</option>
-                <option value="12">o</option>
-                <option value="16">o</option>
-                <option value="20">o</option>
-                <option value="24">o</option>
-                <option value="28">o</option>
-                <option value="32">o</option>
-            </datalist>
+            <div class="max-result">
+                <input type="range" list="maxResults" min="4" max="32" step="4">
+                <datalist id="maxResults" style="--list-length: 8">
+                    <option value="4">o</option>
+                    <option value="8">o</option>
+                    <option value="12">o</option>
+                    <option value="16">o</option>
+                    <option value="20">o</option>
+                    <option value="24">o</option>
+                    <option value="28">o</option>
+                    <option value="32">o</option>
+                </datalist>
+            </div>
             <h2 style="font-weight: 100; color: var(--dark);" role="table">Users</h2>
             <div class="tableWrapper" style="overflow-y: auto; height: 100%;">
                 <table>
