@@ -181,11 +181,11 @@
             content: '\21DD';
         }
 
-        .max-result input{
+        .max-result input {
             width: 100%;
         }
 
-        .max-result{
+        .max-result {
             display: flex;
             flex-direction: column;
             width: 100%;
@@ -204,7 +204,8 @@
             .tableContainer .max-result {
                 order: 1;
             }
-            .tableContainer .max-result input{
+
+            .tableContainer .max-result input {
                 order: 1;
             }
         }
@@ -224,16 +225,16 @@
         </div>
         <div class="tableContainer" style="--pad:1rem; display: flex; height: 100%;">
             <div class="max-result">
-                <input type="range" list="maxResults" min="4" max="32" step="4">
+                <input type="range" list="maxResults" min="8" max="64" step="8">
                 <datalist id="maxResults" style="--list-length: 8">
-                    <option value="4">o</option>
                     <option value="8">o</option>
-                    <option value="12">o</option>
                     <option value="16">o</option>
-                    <option value="20">o</option>
                     <option value="24">o</option>
-                    <option value="28">o</option>
                     <option value="32">o</option>
+                    <option value="40">o</option>
+                    <option value="48">o</option>
+                    <option value="56">o</option>
+                    <option value="64">o</option>
                 </datalist>
             </div>
             <h2 style="font-weight: 100; color: var(--dark);" role="table">Users</h2>
